@@ -1,0 +1,24 @@
+<div class="d-table">
+  <div class="d-table-cell">
+
+    <h3>Registro</h3>
+    <div [formGroup]="authForm">
+      <input type="email"
+             class="form-control"
+             formControlName="email"
+             placeholder="Email Address">
+      <input type="password"
+             class="form-control"
+             formControlName="password"
+      >
+      <input type="button"
+             class="btn btn-primary"
+             value="Registro"
+             (click)="registro()">
+    </div>
+    <div class="link-info">
+      <span>¿Tiene una cuenta?
+      <span class="btn-link" routerLink="/login"></span></span>
+    </div>
+  </div>
+</div>
