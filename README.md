@@ -27,26 +27,55 @@ Comando: `ng g s shared/services/firebase`
 
 Luego entramos y configuramos los métodos de acceso: _getIncidencias_, _getDetailIncidencia_, _updateIncidencia_, _newIncidencia_, _deleteIncidencia_ y _queryIncidencia_.
 
-## Development server
+## Creación de los módulos y sus rutas (incluyendo lazyloading)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Creamos el módulo de administración:
 
-## Code scaffolding
+`ng g m administracion -m app --route administracion`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Este comando crea el módulo en su carpeta, un componente con el nombre administracion y añade la ruta con lazy loading en el app-routing (por supuesto, crea el módulo de enrutamiento de administracion).
 
-## Build
+Hacemos lo mismo con el módulo de clientes:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+`ng g m clientes -m app --route clientes`
 
-## Running unit tests
+### Creación del menú con los enlaces
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+`ng g c shared/menu`
 
-## Running end-to-end tests
+## Siguiente paso: añadir servicio de usuarios
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Creamos el servicio usuarios a través del cual comprobaremos si está logueado el usuario y cual es su rol en la aplicación:
 
-## Further help
+`ng g s shared/services/users`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Implementación del login
+
+Sacado de [aquí](https://techriders.tajamar.es/log-in-firebase-angular/)
+
+Primero creo un módulo (sin enrutamiento, para el login):
+
+`ng g m login`
+
+Dentro crearemos las diferentes vistas para el logín, el registro, etc...
+
+`ng g c login/login`
+
+Modifico el formulario para que sea reactivo, y elimino el módulo de login, declarando el login directamente en app module (_no me cogía bien el formGroup_).
+
+`ng g c login/registro`
+
+`ng g c login/logout`
+
+
+## Implementación del Guard para acceder si el usuario ha hecho signin
+
+### Crear el guard
+
+`ng g guard shared/guards/guardSignIn`
+
+********************************
+********************************
+
+Implementación de roles: estos se deben leer de la base de datos. El usuario administraador debería poder ver los usuarios registrados para asignarles un rol.
+Para ello en el guard, extraigo el mail del usuario y consulto el rol a la base de datos.
