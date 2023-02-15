@@ -1,10 +1,10 @@
-import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, } from '@angular/core';
 import {UsersService} from "../../shared/services/users.service";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AngularFireAuth} from "@angular/fire/compat/auth";
-import firebase from "firebase/compat";
 import {AuthService} from "../../shared/services/auth.service";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogBoxComponent} from "../../shared/material/dialog-box/dialog-box.component";
 
 @Component({
   selector: 'app-login',
@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     private usersService: UsersService,
     private router: Router,
     private fb: FormBuilder,
+    public dialog: MatDialog
   ) {
     this.formLogin = this.fb.group({
       cajamail: ['', Validators.required],
@@ -33,13 +34,30 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    const email = this.formLogin.value
+
     this.authService.SignIn(this.formLogin.get('cajamail')?.value,
-      this.formLogin.get('cajapassword')?.value);
+      this.formLogin.get('cajapassword')?.value).then(
+      (resp: any) => {
+        if(resp) {
+          this.router.navigate(['/administracion']);
+        } else {
+          // limpiar formulario
+          this.formLogin.reset();
+          this.dialog.open(DialogBoxComponent);
+        }
+
+        //console.log(resp);
+      }
+    );
+
   }
 
 
   logOut() {
     this.authService.SignOut();
+  }
+
+  irARegistro() {
+    this.router.navigate(['/registro']);
   }
 }

@@ -1,10 +1,5 @@
-import {Injectable, NgZone} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
-import {Router} from "@angular/router";
-import firebase from "firebase/compat";
-import User = firebase.User;
-import auth = firebase.auth;
 import {UsersService} from "./users.service";
 
 
@@ -41,28 +36,23 @@ export class AuthService {
     utiliza this.angularFireAuth.auth.SignIn... el auth sobra y lo quito
      */
 
-    this.angularFireAuth.signInWithEmailAndPassword(email, password)
-      .then(res => {
+    return this.angularFireAuth.signInWithEmailAndPassword(email, password)
+      .then(() => {
         console.log('¡Has entrado!');
+        return true;
       })
       .catch(error => {
         console.log('Ha habido un error: ', error.message);
+        return false;
       })
   }
 
   /* is Authenticated */
   isAuthenticated() {
-    return this.angularFireAuth.authState;/*.subscribe(
-      res => {
-        if(res && res.uid) {
-          console.log('Usuario está logeado');
-        } else {
-          console.log('Usuario no logeado');
-
-        }
-      }
-    );*/
+    console.log("Entrando en isAuthenticated");
+    return this.angularFireAuth.authState;
   }
+
   /*  Sign Out  */
   SignOut() {
     this.angularFireAuth.signOut();

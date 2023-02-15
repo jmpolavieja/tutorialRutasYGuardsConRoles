@@ -1,10 +1,6 @@
 import {Injectable} from '@angular/core';
-import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {Router} from "@angular/router";
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
-import {Observable} from "rxjs";
+import {AngularFirestore, AngularFirestoreCollection, } from "@angular/fire/compat/firestore";
 import {User} from "../../core/interfaces/user";
-
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +20,11 @@ export class UsersService {
     return this.coleccion.snapshotChanges();
   }
 
-  getUser(mail: string) {
-    return this.afs.collection('users', ref => ref.where('email', "==", mail)).valueChanges();
+  getUser(mail: string | null) {
+
+      return this.afs.collection('users', ref => ref.where('email', "==", mail).limit(1)).valueChanges();
+
+
   }
 
   setRol(user: User) {

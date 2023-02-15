@@ -4,13 +4,15 @@ import { AdminComponent } from './admin.component';
 import {AdministracionRoutingModule} from "./administracion-routing.module";
 import { UserCardComponent } from './user-card/user-card.component';
 import {MaterialModule} from "../shared/material/material.module";
+import { TablaUsersComponent } from './tabla-users/tabla-users.component';
 
 
 
 @NgModule({
   declarations: [
     AdminComponent,
-    UserCardComponent
+    UserCardComponent,
+    TablaUsersComponent
   ],
   imports: [
     CommonModule,

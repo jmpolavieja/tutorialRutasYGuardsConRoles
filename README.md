@@ -79,3 +79,8 @@ Modifico el formulario para que sea reactivo, y elimino el módulo de login, dec
 
 Implementación de roles: estos se deben leer de la base de datos. El usuario administraador debería poder ver los usuarios registrados para asignarles un rol.
 Para ello en el guard, extraigo el mail del usuario y consulto el rol a la base de datos.
+
+14/02/2023
+Hemos dado foramto a las páginas de login y registro.
+
+Administración: En este caso, administración de usuarios, con la asignación de roles.
