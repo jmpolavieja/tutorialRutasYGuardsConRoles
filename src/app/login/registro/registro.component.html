@@ -11,11 +11,15 @@
                  class="form-control m-2"
                  formControlName="password"
                  placeholder="password">
+          <label>Repite Contraseña</label>
+          <input type="password" formControlName="passwordR" placeholder="123456" class="form-control" minlength="6"
+                 maxlength="20" pattern="[A-Za-z0-9]{6,20}" (blur)="compruebaPassword()">
           <input type="button"
                  class="btn btn-success m-2 "
                  value="Registrar"
                  (click)="registro()"
-                 [disabled]="!authForm.valid">
+                 [disabled]="((authForm.valid) && (passwordOk))? false:true">
+
         </div>
         <div class="link-info pt-4">
           <span role="button" class="btn-link" routerLink="/login"><span>¿Tiene una cuenta?</span></span>

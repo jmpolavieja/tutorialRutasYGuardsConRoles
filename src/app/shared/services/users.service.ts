@@ -22,7 +22,9 @@ export class UsersService {
 
   getUser(mail: string | null) {
 
-      return this.afs.collection('users', ref => ref.where('email', "==", mail).limit(1)).valueChanges();
+      return this.afs.collection('users',
+          ref => ref.where('email', "==", mail)
+            .limit(1)).valueChanges();
 
 
   }

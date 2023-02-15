@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   formLogin: FormGroup;
   userName: string = '';
 
+
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
@@ -29,16 +30,15 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   login() {
-
     this.authService.SignIn(this.formLogin.get('cajamail')?.value,
       this.formLogin.get('cajapassword')?.value).then(
       (resp: any) => {
         if(resp) {
+          /* resp es true o false. Si es true puedo guardar el mail del usuario y su rol*/
+          console.log(resp);
           this.router.navigate(['/administracion']);
         } else {
           // limpiar formulario
@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
   }
 
 
+
   logOut() {
     this.authService.SignOut();
   }
@@ -60,4 +61,6 @@ export class LoginComponent implements OnInit {
   irARegistro() {
     this.router.navigate(['/registro']);
   }
+
+
 }
